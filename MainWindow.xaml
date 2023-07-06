@@ -1,0 +1,55 @@
+﻿<Window x:Class="PhoneListMVVM.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="FontFamily" Value="Comic Sans MS" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Foreground" Value="Red" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.8*" />
+        </Grid.ColumnDefinitions>
+        
+
+        <ListBox Grid.Column="0" ItemsSource="{Binding Phones}"
+                 SelectedItem="{Binding SelectedPhone}" Margin="5">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="5">
+                        <TextBlock FontSize="18" Text="{Binding Path=Title}" />
+                        <TextBlock Text="{Binding Path=Company}" />
+                        <TextBlock Text="{Binding Path=Price}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+
+        <StackPanel Grid.Column="1" DataContext="{Binding SelectedPhone}">
+            <TextBlock Text="Выбранный элемент"  />
+            <TextBlock Text="Модель" />
+            <TextBox x:Name="title" Text="{Binding Title, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Производитель" />
+            <TextBox x:Name="comp" Text="{Binding Company, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBlock Text="Цена" />
+            <TextBox x:Name="compn" Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column = "1" VerticalAlignment="Bottom">
+            <Button Command="{Binding AddCommand}" Content="+"/>
+        </StackPanel>
+    </Grid>
+</Window>
